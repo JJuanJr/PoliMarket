@@ -9,21 +9,15 @@ namespace PoliMarket.Controllers
     [ApiController]
     public class VentasController : ControllerBase
     {
-        private readonly BodegaFacade _bodegaFacade;
-        private readonly VentasFacade _ventasFacade;
+        private readonly IVentasService _ventasFacade;
+        
 
-        public VentasController(BodegaFacade bodegaFacade, VentasFacade ventasFacade)
+        public VentasController(IVentasService ventasFacade)
         {
-            _bodegaFacade = bodegaFacade;
             _ventasFacade = ventasFacade;
         }
 
-        [HttpGet("listar-productos-disponibles")]
-        public IActionResult ListarProductosDisponibles()
-        {
-            return Ok(_bodegaFacade.ListarProductosDisponibles());
-        }
-
+       
         [HttpPost("crear-venta")]
         public IActionResult CrearVenta(CrearVentaRequest crearVenta)
         {

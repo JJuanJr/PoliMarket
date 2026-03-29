@@ -1,14 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using PoliMarket.Components.Bodega;
 using PoliMarket.Components.Bodega.Entities;
+using PoliMarket.Components.Bodega.Repositories.Interfaces;
 using PoliMarket.Components.Inventario.Repositories;
 using PoliMarket.Components.Proveedores;
 using PoliMarket.Components.Proveedores.Repositories;
+using PoliMarket.Components.Proveedores.Repositories.Interfaces;
 using PoliMarket.Components.RecursosHumanos;
 using PoliMarket.Components.RecursosHumanos.Entities;
 using PoliMarket.Components.RecursosHumanos.Repositories;
+using PoliMarket.Components.RecursosHumanos.Repositories.Interfaces;
 using PoliMarket.Components.Ventas;
 using PoliMarket.Components.Ventas.Repositories;
+using PoliMarket.Components.Ventas.Repositories.Interfaces;
 using PoliMarket.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,19 +27,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("DbPoliMarket"));
 
-builder.Services.AddScoped<GestorRHRepository>();
-builder.Services.AddScoped<VendedorRepository>();
-builder.Services.AddScoped<RecursosHumanosFacade>();
+builder.Services.AddScoped<IGestorRHRepository, GestorRHRepository>();
+builder.Services.AddScoped<IVendedorRepository, VendedorRepository>();
+builder.Services.AddScoped<IRecursosHumanosService, RecursosHumanosFacade>();
 
-builder.Services.AddScoped<BodegaFacade>();
-builder.Services.AddScoped<InventarioRepository>();
+builder.Services.AddScoped<IBodegaService, BodegaFacade>();
+builder.Services.AddScoped<IInventarioRepository, InventarioRepository>();
 
-builder.Services.AddScoped<ProveedorRepository>();
-builder.Services.AddScoped<ProveedoresFacade>();
+builder.Services.AddScoped<IProveedorRepository, ProveedorRepository>();
+builder.Services.AddScoped<IProveedorService, ProveedoresFacade>();
 
-builder.Services.AddScoped<VentasFacade>();
-builder.Services.AddScoped<VentaRepository>();
-builder.Services.AddScoped<DetallaVentaRepository>();
+builder.Services.AddScoped<IVentasService,VentasFacade>();
+builder.Services.AddScoped<IVentaRepository,VentaRepository>();
+builder.Services.AddScoped<IDetalleVentaRepository, DetallaVentaRepository>();
 
 builder.Services.AddCors(options =>
 {

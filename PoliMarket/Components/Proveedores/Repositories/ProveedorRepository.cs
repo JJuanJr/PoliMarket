@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PoliMarket.Components.Proveedores.Entities;
+using PoliMarket.Components.Proveedores.Dto;
+using PoliMarket.Components.Proveedores.Mapper;
+using PoliMarket.Components.Proveedores.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.Proveedores.Repositories
 {
-    public class ProveedorRepository
+    public class ProveedorRepository : IProveedorRepository
     {
         private readonly AppDbContext _context;
 
@@ -13,11 +15,13 @@ namespace PoliMarket.Components.Proveedores.Repositories
             _context = context;
         }
 
-        public List<ProductoProveedor> ListarProductos(string idProveedor)
+        public List<ProductoProveedorDto> ListarProductos(string idProveedor)
         {
-            return _context.Proveedores.Include(p => p.Productos)
+            var productosProveedor = _context.Proveedores.Include(p => p.Productos)
                 .First(p => p.IdProveedor == idProveedor)
                 .Productos.ToList();
+
+            return productosProveedor.Select(ProveedorMapper.ToDto).ToList();
         }
     }
 }

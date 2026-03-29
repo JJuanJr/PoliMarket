@@ -7,9 +7,9 @@ namespace PoliMarket.Controllers
     [ApiController]
     public class RecursosHumanosController : ControllerBase
     {
-        private readonly RecursosHumanosFacade _rhFacade;
+        private readonly IRecursosHumanosService _rhFacade;
 
-        public RecursosHumanosController(RecursosHumanosFacade rhFacade)
+        public RecursosHumanosController(IRecursosHumanosService rhFacade)
         {
             _rhFacade = rhFacade;
         }

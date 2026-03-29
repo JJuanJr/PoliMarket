@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PoliMarket.Components.Ventas.Dto;
 using PoliMarket.Components.Ventas.Entities;
+using PoliMarket.Components.Ventas.Mapper;
+using PoliMarket.Components.Ventas.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.Ventas.Repositories
 {
-    public class VentaRepository
+    public class VentaRepository : IVentaRepository
     {
         private readonly AppDbContext _context;
 
@@ -27,9 +30,13 @@ namespace PoliMarket.Components.Ventas.Repositories
             return idVenta;
         }
 
-        public List<Venta> ListarVentas()
+        public List<VentaDto> ListarVentas()
         {
-            return _context.Ventas.Include(d => d.DetallesVentas).ToList();
+            var ventas = _context.Ventas.Include(d => d.DetallesVentas).ToList();
+            
+            var result = ventas.Select(VentaMapper.ToDto).ToList();
+
+            return result;
         }
     }
 }

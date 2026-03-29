@@ -1,9 +1,10 @@
 ﻿using PoliMarket.Components.RecursosHumanos.Entities;
+using PoliMarket.Components.RecursosHumanos.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.RecursosHumanos.Repositories
 {
-    public class VendedorRepository
+    public class VendedorRepository : IVendedorRepository
     {
         private readonly AppDbContext _context;
 

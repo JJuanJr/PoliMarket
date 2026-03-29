@@ -1,28 +1,28 @@
 ﻿using PoliMarket.Components.Bodega;
-using PoliMarket.Components.Ventas.Entities;
-using PoliMarket.Components.Ventas.Repositories;
+using PoliMarket.Components.Ventas.Dto;
+using PoliMarket.Components.Ventas.Repositories.Interfaces;
 using PoliMarket.Components.Ventas.Request;
 
 namespace PoliMarket.Components.Ventas
 {
-    public class VentasFacade
+    public class VentasFacade : IVentasService
     {
-        private readonly VentaRepository _ventaRepository;
-        private readonly DetallaVentaRepository _detallaVentaRepository;
-        private readonly BodegaFacade _bodegaFacade;
+        private readonly IVentaRepository _ventaRepository;
+        private readonly IDetalleVentaRepository _detallaVentaRepository;
+        private readonly IBodegaService _bodegaService;
 
-        public VentasFacade(VentaRepository ventaRepository, DetallaVentaRepository detallaVentaRepository, BodegaFacade bodegaFacade)
+        public VentasFacade(IVentaRepository ventaRepository, IDetalleVentaRepository detallaVentaRepository, IBodegaService bodegaService)
         {
             _ventaRepository = ventaRepository;
             _detallaVentaRepository = detallaVentaRepository;
-            _bodegaFacade = bodegaFacade;
+            _bodegaService = bodegaService;
         }
 
         public bool CrearVenta(CrearVentaRequest crearVenta)
         {
             foreach (var producto in crearVenta.Productos)
             {
-                var cantidad = _bodegaFacade.ObtenerExistencias(producto.IdProducto);
+                var cantidad = _bodegaService.ObtenerExistencias(producto.IdProducto);
                 if (cantidad < producto.Cantidad)
                 {
                     return false;
@@ -31,7 +31,7 @@ namespace PoliMarket.Components.Ventas
 
             foreach (var producto in crearVenta.Productos)
             {
-                _bodegaFacade.ActualizarStock(producto.IdProducto, -producto.Cantidad);
+                _bodegaService.ActualizarStock(producto.IdProducto, -producto.Cantidad);
             }
 
             var idVenta = _ventaRepository.RegistrarVenta(crearVenta.IdVendedor, crearVenta.DocumentoCliente);
@@ -44,7 +44,7 @@ namespace PoliMarket.Components.Ventas
             return true;
         }
 
-        public List<Venta> ListarVentas()
+        public List<VentaDto> ListarVentas()
         {
             return _ventaRepository.ListarVentas();
         }

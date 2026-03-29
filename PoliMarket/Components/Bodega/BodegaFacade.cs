@@ -1,18 +1,18 @@
-﻿using PoliMarket.Components.Bodega.Entities;
-using PoliMarket.Components.Inventario.Repositories;
+﻿using PoliMarket.Components.Bodega.Dto;
+using PoliMarket.Components.Bodega.Repositories.Interfaces;
 
 namespace PoliMarket.Components.Bodega
 {
-    public class BodegaFacade
+    public class BodegaFacade : IBodegaService
     {
-        private readonly InventarioRepository _inventarioRepository;
+        private readonly IInventarioRepository _inventarioRepository;
 
-        public BodegaFacade(InventarioRepository inventarioRepository)
+        public BodegaFacade(IInventarioRepository inventarioRepository)
         {
             _inventarioRepository = inventarioRepository;
         }
 
-        public List<ProductoVenta> ListarProductosDisponibles()
+        public List<ProductoVentaDto> ListarProductosDisponibles()
         {
             return _inventarioRepository.ListarProductos();
         }

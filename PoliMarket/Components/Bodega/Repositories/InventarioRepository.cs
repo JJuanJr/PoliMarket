@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PoliMarket.Components.Bodega.Entities;
+using PoliMarket.Components.Bodega.Dto;
+using PoliMarket.Components.Bodega.Mapper;
+using PoliMarket.Components.Bodega.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.Inventario.Repositories
 {
-    public class InventarioRepository
+    public class InventarioRepository : IInventarioRepository
     {
         private readonly AppDbContext _context;
 
@@ -13,9 +15,11 @@ namespace PoliMarket.Components.Inventario.Repositories
             _context = context;
         }
 
-        public List<ProductoVenta> ListarProductos()
+        public List<ProductoVentaDto> ListarProductos()
         {
-            return _context.Productos.Include(p => p.Stoks).Where(p => p.Stoks.Any(s => s.Cantidad > 0)).ToList();
+            var productos = _context.Productos.Include(p => p.Stoks).Where(p => p.Stoks.Any(s => s.Cantidad > 0)).ToList();
+            var productosDto = productos.Select(p => BodegaMapper.ToDto(p)).ToList();
+            return productosDto;
         }
 
         public int ObtenerExistencias(string idProducto)

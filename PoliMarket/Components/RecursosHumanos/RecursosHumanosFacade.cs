@@ -1,13 +1,13 @@
-﻿using PoliMarket.Components.RecursosHumanos.Repositories;
+﻿using PoliMarket.Components.RecursosHumanos.Repositories.Interfaces;
 
 namespace PoliMarket.Components.RecursosHumanos
 {
-    public class RecursosHumanosFacade
+    public class RecursosHumanosFacade : IRecursosHumanosService
     {
-        private readonly GestorRHRepository _gestorRHRepository;
-        private readonly VendedorRepository _vendedorRepository;
+        private readonly IGestorRHRepository _gestorRHRepository;
+        private readonly IVendedorRepository _vendedorRepository;
 
-        public RecursosHumanosFacade(GestorRHRepository gestorRHRepository, VendedorRepository vendedorRepository)
+        public RecursosHumanosFacade(IGestorRHRepository gestorRHRepository, IVendedorRepository vendedorRepository)
         {
             _gestorRHRepository = gestorRHRepository;
             _vendedorRepository = vendedorRepository;

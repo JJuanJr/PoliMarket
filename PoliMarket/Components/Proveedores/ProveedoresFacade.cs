@@ -1,18 +1,18 @@
-﻿using PoliMarket.Components.Proveedores.Entities;
-using PoliMarket.Components.Proveedores.Repositories;
+﻿using PoliMarket.Components.Proveedores.Dto;
+using PoliMarket.Components.Proveedores.Repositories.Interfaces;
 
 namespace PoliMarket.Components.Proveedores
 {
-    public class ProveedoresFacade
+    public class ProveedoresFacade : IProveedorService
     {
-        private readonly ProveedorRepository _proveedorRepository;
+        private readonly IProveedorRepository _proveedorRepository;
 
-        public ProveedoresFacade(ProveedorRepository proveedorRepository)
+        public ProveedoresFacade(IProveedorRepository proveedorRepository)
         {
             _proveedorRepository = proveedorRepository;
         }
 
-        public List<ProductoProveedor> ObtenerProductosDeProveedor(string idProveedor)
+        public List<ProductoProveedorDto> ObtenerProductosDeProveedor(string idProveedor)
         {
             return _proveedorRepository.ListarProductos(idProveedor);
         }

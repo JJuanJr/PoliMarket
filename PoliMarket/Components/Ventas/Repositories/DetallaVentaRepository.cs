@@ -1,9 +1,10 @@
 ﻿using PoliMarket.Components.Ventas.Entities;
+using PoliMarket.Components.Ventas.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.Ventas.Repositories
 {
-    public class DetallaVentaRepository
+    public class DetallaVentaRepository : IDetalleVentaRepository
     {
         private readonly AppDbContext _context;
 

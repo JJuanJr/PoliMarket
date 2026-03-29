@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PoliMarket.Components.RecursosHumanos.Entities;
+using PoliMarket.Components.RecursosHumanos.Dto;
+using PoliMarket.Components.RecursosHumanos.Mapper;
+using PoliMarket.Components.RecursosHumanos.Repositories.Interfaces;
 using PoliMarket.Context;
 
 namespace PoliMarket.Components.RecursosHumanos.Repositories
 {
-    public class GestorRHRepository
+    public class GestorRHRepository : IGestorRHRepository
     {
         private readonly AppDbContext _context;
 
@@ -13,10 +15,12 @@ namespace PoliMarket.Components.RecursosHumanos.Repositories
             _context = context;
         }
 
-        public Vendedor? ConsultarVendedorAutorizado(string idVendedor)
+        public VendedorDto? ConsultarVendedorAutorizado(string idVendedor)
         {
-            return _context.GestorTH.Include(g => g.VendedoresAutorizados)
+            var vendedor = _context.GestorTH.Include(g => g.VendedoresAutorizados)
                 .First()?.VendedoresAutorizados.FirstOrDefault(v => v.IdVendedor == idVendedor);
+
+            return vendedor != null ? VendedorMapper.ToDto(vendedor) : null;
         }
     }
 }
