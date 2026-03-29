@@ -2,12 +2,12 @@
 
 namespace PoliMarket.Components.RecursosHumanos
 {
-    public class RecursosHumanosFacade : IRecursosHumanosService
+    public class RecursosHumanosService : IRecursosHumanosService
     {
         private readonly IGestorRHRepository _gestorRHRepository;
         private readonly IVendedorRepository _vendedorRepository;
 
-        public RecursosHumanosFacade(IGestorRHRepository gestorRHRepository, IVendedorRepository vendedorRepository)
+        public RecursosHumanosService(IGestorRHRepository gestorRHRepository, IVendedorRepository vendedorRepository)
         {
             _gestorRHRepository = gestorRHRepository;
             _vendedorRepository = vendedorRepository;

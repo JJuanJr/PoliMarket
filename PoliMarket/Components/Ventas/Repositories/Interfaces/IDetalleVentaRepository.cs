@@ -2,7 +2,7 @@
 {
     public interface IDetalleVentaRepository
     {
-        bool RegistrarDetalleVenta(string idVenta, string idProducto, int cantidad);
+        bool RegistrarDetalleVenta(string idVenta, string idProducto, int cantidad, string nombreProducto);
 
     }
 }

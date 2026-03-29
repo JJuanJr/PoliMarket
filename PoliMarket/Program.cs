@@ -13,6 +13,7 @@ using PoliMarket.Components.RecursosHumanos.Repositories.Interfaces;
 using PoliMarket.Components.Ventas;
 using PoliMarket.Components.Ventas.Repositories;
 using PoliMarket.Components.Ventas.Repositories.Interfaces;
+using PoliMarket.Components.Ventas.Services;
 using PoliMarket.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,15 +30,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IGestorRHRepository, GestorRHRepository>();
 builder.Services.AddScoped<IVendedorRepository, VendedorRepository>();
-builder.Services.AddScoped<IRecursosHumanosService, RecursosHumanosFacade>();
+builder.Services.AddScoped<IRecursosHumanosService, RecursosHumanosService>();
 
-builder.Services.AddScoped<IBodegaService, BodegaFacade>();
+builder.Services.AddScoped<IBodegaService, BodegaService>();
 builder.Services.AddScoped<IInventarioRepository, InventarioRepository>();
 
 builder.Services.AddScoped<IProveedorRepository, ProveedorRepository>();
-builder.Services.AddScoped<IProveedorService, ProveedoresFacade>();
+builder.Services.AddScoped<IProveedorService, ProveedoresService>();
 
-builder.Services.AddScoped<IVentasService,VentasFacade>();
+builder.Services.AddScoped<IVentaService, VentaService>();
+builder.Services.AddScoped<IVentaFacade,VentaFacade>();
 builder.Services.AddScoped<IVentaRepository,VentaRepository>();
 builder.Services.AddScoped<IDetalleVentaRepository, DetallaVentaRepository>();
 

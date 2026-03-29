@@ -1,20 +1,18 @@
 ﻿using PoliMarket.Components.Bodega;
 using PoliMarket.Components.Ventas.Dto;
-using PoliMarket.Components.Ventas.Repositories.Interfaces;
 using PoliMarket.Components.Ventas.Request;
+using PoliMarket.Components.Ventas.Services;
 
 namespace PoliMarket.Components.Ventas
 {
-    public class VentasFacade : IVentasService
+    public class VentaFacade : IVentaFacade
     {
-        private readonly IVentaRepository _ventaRepository;
-        private readonly IDetalleVentaRepository _detallaVentaRepository;
+        private readonly IVentaService _ventaService;
         private readonly IBodegaService _bodegaService;
 
-        public VentasFacade(IVentaRepository ventaRepository, IDetalleVentaRepository detallaVentaRepository, IBodegaService bodegaService)
+        public VentaFacade(IVentaService ventaService, IBodegaService bodegaService)
         {
-            _ventaRepository = ventaRepository;
-            _detallaVentaRepository = detallaVentaRepository;
+            _ventaService = ventaService;
             _bodegaService = bodegaService;
         }
 
@@ -34,11 +32,11 @@ namespace PoliMarket.Components.Ventas
                 _bodegaService.ActualizarStock(producto.IdProducto, -producto.Cantidad);
             }
 
-            var idVenta = _ventaRepository.RegistrarVenta(crearVenta.IdVendedor, crearVenta.DocumentoCliente);
+            var idVenta = _ventaService.RegistrarVenta(crearVenta.IdVendedor, crearVenta.DocumentoCliente);
 
             foreach (var producto in crearVenta.Productos)
             {
-                _detallaVentaRepository.RegistrarDetalleVenta(idVenta, producto.IdProducto, producto.Cantidad);
+                _ventaService.RegistrarDetalleVenta(idVenta, producto.IdProducto, producto.Cantidad, producto.NombreProducto);
             }
 
             return true;
@@ -46,7 +44,7 @@ namespace PoliMarket.Components.Ventas
 
         public List<VentaDto> ListarVentas()
         {
-            return _ventaRepository.ListarVentas();
+            return _ventaService.ListarVentas();
         }
     }
 }

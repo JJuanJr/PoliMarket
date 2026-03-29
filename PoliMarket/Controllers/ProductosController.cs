@@ -7,17 +7,17 @@ namespace PoliMarket.Controllers
     [ApiController]
     public class ProductosController : ControllerBase
     {
-        private readonly IBodegaService _bodegaFacade;
+        private readonly IBodegaService _bodegaService;
 
         public ProductosController(IBodegaService bodegaService)
         {
-            _bodegaFacade = bodegaService;
+            _bodegaService = bodegaService;
         }
 
         [HttpGet("listar-productos-disponibles")]
         public IActionResult ListarProductosDisponibles()
         {
-            return Ok(_bodegaFacade.ListarProductosDisponibles());
+            return Ok(_bodegaService.ListarProductosDisponibles());
         }
 
     }

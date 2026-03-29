@@ -3,11 +3,11 @@ using PoliMarket.Components.Proveedores.Repositories.Interfaces;
 
 namespace PoliMarket.Components.Proveedores
 {
-    public class ProveedoresFacade : IProveedorService
+    public class ProveedoresService : IProveedorService
     {
         private readonly IProveedorRepository _proveedorRepository;
 
-        public ProveedoresFacade(IProveedorRepository proveedorRepository)
+        public ProveedoresService(IProveedorRepository proveedorRepository)
         {
             _proveedorRepository = proveedorRepository;
         }

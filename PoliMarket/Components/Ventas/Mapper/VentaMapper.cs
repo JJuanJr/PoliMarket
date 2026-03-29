@@ -17,7 +17,8 @@ namespace PoliMarket.Components.Ventas.Mapper
                 {
                     IdProducto = d.IdProducto,
                     Cantidad = d.Cantidad,
-                    IdVenta = d.IdVenta
+                    IdVenta = d.IdVenta,
+                    NombreProducto = d.NombreProducto
                 }).ToList()
             };
         }

@@ -3,11 +3,11 @@ using PoliMarket.Components.Bodega.Repositories.Interfaces;
 
 namespace PoliMarket.Components.Bodega
 {
-    public class BodegaFacade : IBodegaService
+    public class BodegaService : IBodegaService
     {
         private readonly IInventarioRepository _inventarioRepository;
 
-        public BodegaFacade(IInventarioRepository inventarioRepository)
+        public BodegaService(IInventarioRepository inventarioRepository)
         {
             _inventarioRepository = inventarioRepository;
         }
