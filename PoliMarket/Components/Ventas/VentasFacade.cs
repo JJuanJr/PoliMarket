@@ -38,7 +38,7 @@ namespace PoliMarket.Components.Ventas
 
             foreach (var producto in crearVenta.Productos)
             {
-                _detallaVentaRepository.RegistrarDetalleVenta(idVenta, producto.IdProducto, producto.Cantidad);
+                _detallaVentaRepository.RegistrarDetalleVenta(idVenta, producto.IdProducto, producto.Cantidad, producto.NombreProducto);
             }
 
             return true;

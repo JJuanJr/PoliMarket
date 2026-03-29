@@ -10,6 +10,7 @@
     public class ProductoRequest
     {
         public string IdProducto { get; set; } = null!;
+        public string NombreProducto { get; set; } = null!;
         public int Cantidad { get; set; }
     }
 }

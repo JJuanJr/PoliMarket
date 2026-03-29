@@ -12,13 +12,14 @@ namespace PoliMarket.Components.Ventas.Repositories
             _context = context;
         }
 
-        public bool RegistrarDetalleVenta(string idVenta, string idProducto, int cantidad)
+        public bool RegistrarDetalleVenta(string idVenta, string idProducto, int cantidad, string nombreProducto)
         {
             _context.DetallesVentas.Add(new DetalleVenta
             {
                 IdVenta = idVenta,
                 IdProducto = idProducto,
-                Cantidad = cantidad
+                Cantidad = cantidad,
+                NombreProducto = nombreProducto
             });
             _context.SaveChanges();
             return true;
